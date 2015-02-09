@@ -1,0 +1,9 @@
+item.voidglasses.glasses.name=Glasses of the Void
+
+update.voidglasses.update=A new update of Void Glasses is out now!
+update.voidglasses.update.old=Old Version:
+update.voidglasses.update.new=New Version:
+
+voidglasses.shadernotsupported=Shaders are not supported by your graphics card, so this mod is basically worthless...
+voidglasses.shader=Shader: %s
+voidglasses.shaderActivate=Activating shader %s
