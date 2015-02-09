@@ -79,12 +79,19 @@ public class ClientProxy extends Proxy {
 
     public void disableShaders() {
         Minecraft.getMinecraft().entityRenderer.theShaderGroup = null;
+        shaderActivated = false;
+        setIndex = -1;
     }
 
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
-        if (player != null && event.side == Side.CLIENT) {
+        if (player != null && event.side == Side.CLIENT && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
+            if (shaderActivated && Minecraft.getMinecraft().entityRenderer.theShaderGroup == null) {
+                ResourceLocation shader = shaderList.get(setIndex);
+                if (shader != null)
+                    Minecraft.getMinecraft().entityRenderer.loadShader(shader);
+            }
 
             ItemStack stack = player.inventory.getStackInSlot(39);
             if (stack != null && stack.getItem() != null) {
@@ -96,17 +103,11 @@ public class ClientProxy extends Proxy {
                                 activateShader(i);
                         } else
                             activateShader(i);
-                    } else if (shaderActivated) {
+                    } else if (shaderActivated)
                         disableShaders();
-                        shaderActivated = false;
-                        setIndex = -1;
-                    }
                 }
-            } else if (shaderActivated) {
+            } else if (shaderActivated)
                 disableShaders();
-                shaderActivated = false;
-                setIndex = -1;
-            }
         }
     }
 }
