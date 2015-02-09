@@ -53,6 +53,9 @@ processResources {
 }
 
 jar {
+    manifest {
+        attributes 'FMLAT' : 'vg_at.cfg'
+    }
     appendix = "$mcVersion"
     classifier = "universal"
 }
